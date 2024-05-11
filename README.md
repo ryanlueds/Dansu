@@ -12,7 +12,7 @@ conda activate openmmlab
 ```
 * Step 2. Install PyTorch following official instructions, e.g.
 ```
-conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
 ```
 * Step 3. Install MMEngine and MMCV using MIM.
 ```
