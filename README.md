@@ -4,7 +4,7 @@ Map pose estimation from camera to 2D model in a game
 # Installation Guide
 ## 0. Please use Windows. 
 ## 1. Prerequisite guide from [MMPpose](https://mmpose.readthedocs.io/en/latest/installation.html):
-* Step 0. Download and install Miniconda from the [official website](https://docs.anaconda.com/free/miniconda/). **Note: Add this to path**
+* Step 0. Download and install Miniconda from the [official website](https://docs.anaconda.com/free/miniconda/). **Note: Add this to path with [these instructions](https://stackoverflow.com/questions/44515769/conda-is-not-recognized-as-internal-or-external-command)**
 * Step 1. Create a conda environment and activate it (do all next steps in `Anaconda Prompt (miniconda3)` in your user directory).
 ```
 conda create --name openmmlab python=3.8 -y
