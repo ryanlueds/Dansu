@@ -4,7 +4,7 @@ Map pose estimation from camera to 2D model in a game
 # Installation Guide
 ## 0. Please use Windows. 
 ## 1. Prerequisite guide from [MMPpose](https://mmpose.readthedocs.io/en/latest/installation.html):
-* Step 0. Download and install Miniconda from the [official website](http://example.com "Title").
+* Step 0. Download and install Miniconda from the [official website](https://docs.anaconda.com/free/miniconda/).
 * Step 1. Create a conda environment and activate it (do all next steps in Anaconda Prompt in your user directory).
 ```
 conda create --name openmmlab python=3.8 -y
@@ -12,7 +12,7 @@ conda activate openmmlab
 ```
 * Step 2. Install PyTorch following official instructions, e.g.
 ```
-conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia
+conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 ```
 * Step 3. Install MMEngine and MMCV using MIM.
 ```
@@ -61,7 +61,7 @@ pip install -v -e .
 ```
 mim download mmpose --config td-hm_hrnet-w48_8xb32-210e_coco-256x192  --dest .
 ```
-* Step 2. Run the inference demo. Run the following command under the folder $MMPOSE:
+* Step 2. Run the inference demo. Run the following command under the folder `ExoJoust/mmpose/`:
 ```
 python demo/image_demo.py tests/data/coco/000000000785.jpg td-hm_hrnet-w48_8xb32-210e_coco-256x192.py td-hm_hrnet-w48_8xb32-210e_coco-256x192-0e67c616_20220913.pth --out-file vis_results.jpg --draw-heatmap
 ```
