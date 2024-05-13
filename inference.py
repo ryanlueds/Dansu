@@ -1,10 +1,11 @@
-import sys
-print(sys.executable)
-
 import cv2
 import numpy as np
+from mmpose.apis import MMPoseInferencer
 
 cap = cv2.VideoCapture(0)
+
+# build the inferencer with 3d model alias
+inferencer = MMPoseInferencer(pose3d='human3d')
 
 # Run the loop.
 while True:
@@ -16,11 +17,14 @@ while True:
     if not ret:
         break
 
-    # Get the frame height and width.
-    frame_w, frame_h = frame.shape[0], frame.shape[1]
+    # The MMPoseInferencer API employs a lazy inference approach,
+    # creating a prediction generator when given input
+    result_generator = inferencer(frame, return_vis=True)
+    result = next(result_generator)
+    frame = result['visualization'][0]
 
     # Display
-    output_frame = cv2.resize(frame, (800,800))
+    output_frame = cv2.resize(frame, (1400,800))
     cv2.imshow('res', output_frame)
 
     if cv2.waitKey(1) == ord('q'):
