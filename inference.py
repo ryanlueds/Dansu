@@ -5,7 +5,7 @@ from mmpose.apis import MMPoseInferencer
 cap = cv2.VideoCapture(0)
 
 # build the inferencer with 3d model alias
-inferencer = MMPoseInferencer(pose3d='human3d')
+inferencer = MMPoseInferencer(pose2d='human')
 
 # Run the loop.
 while True:
