@@ -7,3 +7,6 @@
 # testing
 images
 saved_checkpoints
+
+# garbage
+__pycache__

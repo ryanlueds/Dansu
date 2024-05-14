@@ -1,11 +1,29 @@
+import sys, os
+MMPOSE_PATH = os.path.join(os.path.dirname(sys.path[0]), 'mmpose')
+os.chdir(MMPOSE_PATH)
+
 import cv2
-import numpy as np
-from mmpose.apis import MMPoseInferencer
+
+from mmpose.apis import inference_topdown, init_model
+from mmpose.visualization import FastVisualizer
+
+model_cfg = 'configs/body_2d_keypoint/rtmpose/body8/rtmpose-s_8xb256-420e_body8-256x192.py'
+ckpt = 'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/rtmpose-s_simcc-body7_pt-body7_420e-256x192-acd4a1ef_20230504.pth'
+device = 'cuda:0'
+metainfo = 'configs/_base_/datasets/coco.py'
+
+# init model
+model = init_model(model_cfg, ckpt, device=device)
+
+visualizer = FastVisualizer(
+    model.dataset_meta,
+    radius=2,
+    line_width=1,
+    kpt_thr=0.3
+)
 
 cap = cv2.VideoCapture(0)
 
-# build the inferencer with 3d model alias
-inferencer = MMPoseInferencer(pose2d='human')
 
 # Run the loop.
 while True:
@@ -17,17 +35,17 @@ while True:
     if not ret:
         break
 
-    # The MMPoseInferencer API employs a lazy inference approach,
-    # creating a prediction generator when given input
-    result_generator = inferencer(frame, return_vis=True)
-    result = next(result_generator)
-    frame = result['visualization'][0]
+    # inference on a single image
+    batch_results = inference_topdown(model, frame)
 
-    # Display
-    output_frame = cv2.resize(frame, (1400,800))
-    cv2.imshow('res', output_frame)
+    pred_instances = batch_results[0].pred_instances
+
+    visualizer.draw_pose(frame, pred_instances)
+
+    cv2.imshow('MMPose Demo [Press/Hold \'q\' to Exit]', frame)
 
     if cv2.waitKey(1) == ord('q'):
         break
+
 
 cv2.destroyAllWindows()
