@@ -27,7 +27,7 @@ def filter_keypoints(keypoints):
     ])
     hips = calculate_centroid([
         keypoints[KEYPOINT_INFO.get('left_hip')],
-        keypoints[KEYPOINT_INFO.get('left_hip')]
+        keypoints[KEYPOINT_INFO.get('right_hip')]
     ])
 
     return [head, left_hand, right_hand, hips]
