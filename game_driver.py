@@ -1,3 +1,6 @@
+# for command line arguments
+import getopt, sys
+
 import pygame
 
 # pose libraries
@@ -9,6 +12,7 @@ import configs
 
 from utils import pose_to_vector, filter_keypoints
 from render_utils import load_song, filter_note
+
 
 # pygame setup
 pygame.init()
@@ -23,6 +27,18 @@ text_rect = text.get_rect()
 text_rect.center = (screen.get_width() // 2, screen.get_height() // 2)
 screen.blit(text, text_rect)
 pygame.display.flip()
+
+# whether the camera should be turned off
+argumentList = sys.argv[1:]
+camera = True
+try:
+    arguments, values = getopt.getopt(argumentList, 'n', ['no_camera'])
+    for currentArgument, currentValue in arguments:
+        if currentArgument in ("-n", "--no_camera"):
+            camera = False
+             
+except getopt.error as err:
+    print (str(err))
 
 # load song
 song = load_song('../ExoJoust/song.json')
@@ -47,7 +63,9 @@ while running:
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            cap.release()
+            cv2.destroyAllWindows()
+            break
 
     # update total time
     if reset_clock > 20:
@@ -59,6 +77,8 @@ while running:
     # Read the return flag and the frame.
     ret, frame = cap.read()
     if not ret:
+        cap.release()
+        cv2.destroyAllWindows()
         raise Exception('No frame / invalid frame was returned')
 
     # fill the screen with a color to wipe away anything from last frame
@@ -77,6 +97,17 @@ while running:
 
     # remove notes that should have disappeared
     notes_on_screen[:] = [note for note in notes_on_screen if not filter_note(note, total_time)]
+
+    # draw camera
+    if camera:
+        frame = cv2.resize(frame, (configs.SCREEN_WIDTH, configs.SCREEN_HEIGHT))
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame = cv2.transpose(frame)
+        frame = cv2.flip(frame, 0)
+        camera_surface = pygame.Surface((frame.shape[0], frame.shape[1]), pygame.SRCALPHA)
+        camera_surface.set_alpha(configs.COLORS.get('pose_alpha'))
+        pygame.surfarray.blit_array(camera_surface, frame)
+        screen.blit(camera_surface, (0, 0))
 
     # draw notes
     notes_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)

@@ -9,12 +9,14 @@ def filter_keypoints(keypoints):
         keypoints[configs.KEYPOINT_INFO.get('left_eye')],
         keypoints[configs.KEYPOINT_INFO.get('right_eye')],
     ])
-    left_hand = calculate_centroid([
-        keypoints[configs.KEYPOINT_INFO.get('left_wrist')]
-    ])
-    right_hand = calculate_centroid([
-        keypoints[configs.KEYPOINT_INFO.get('right_wrist')]
-    ])
+    lw = keypoints[configs.KEYPOINT_INFO.get('left_wrist')]
+    le = keypoints[configs.KEYPOINT_INFO.get('left_elbow')]
+    rw = keypoints[configs.KEYPOINT_INFO.get('right_wrist')]
+    re = keypoints[configs.KEYPOINT_INFO.get('right_elbow')]
+    left_hand = (lw[0] + .25*(lw[0] - le[0]),
+                 lw[1] + .25*(lw[1] - le[1]))
+    right_hand = (rw[0] + .25*(rw[0] - re[0]),
+                  rw[1] + .25*(rw[1] - re[1]))
     hips = calculate_centroid([
         keypoints[configs.KEYPOINT_INFO.get('left_hip')],
         keypoints[configs.KEYPOINT_INFO.get('right_hip')]
