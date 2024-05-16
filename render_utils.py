@@ -13,14 +13,14 @@ def load_song(file_name):
     song = []
 
     for n in notes:
-        is_slider = n['is_slider'] == 'True'
-        start_pos = pygame.Vector2(tuple(map(int, n['start_pos'].split(','))))
-        start_time = int(n['start_time'])
+        is_slider = n['is_slider'] == 'true'
+        start_pos = pygame.Vector2(tuple(n['start_pos']))
+        start_time = n['start_time']
 
         note = None
         if is_slider:
-            end_pos = pygame.Vector2(tuple(map(int, n['end_pos'].split(','))))
-            end_time = int(n['end_time'])
+            end_pos = pygame.Vector2(tuple(n['end_pos']))
+            end_time = n['end_time']
             note = Note(is_slider, start_pos, start_time, end_pos=end_pos, end_time=end_time)
         else:
             note = Note(is_slider, start_pos, start_time)

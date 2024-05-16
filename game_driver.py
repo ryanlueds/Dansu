@@ -13,7 +13,7 @@ from render_utils import load_song, filter_note
 # pygame setup
 pygame.init()
 pygame.display.set_caption('All You Need is Dance')
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((configs.SCREEN_WIDTH, configs.SCREEN_HEIGHT))
 
 # display loading screen
 screen.fill(configs.COLORS.get('background'))
