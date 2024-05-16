@@ -1,33 +1,23 @@
 import pygame
+import configs
 import cv2
 
-KEYPOINT_INFO = dict(
-    nose=0,
-    left_eye=1,
-    right_eye=2,
-    left_elbow=7,
-    right_elbow=8,
-    left_wrist=9,
-    right_wrist=10,
-    left_hip=11,
-    right_hip=12
-)
-    
+
 def filter_keypoints(keypoints):
     head = calculate_centroid([
-        keypoints[KEYPOINT_INFO.get('nose')],
-        keypoints[KEYPOINT_INFO.get('left_eye')],
-        keypoints[KEYPOINT_INFO.get('right_eye')],
+        keypoints[configs.KEYPOINT_INFO.get('nose')],
+        keypoints[configs.KEYPOINT_INFO.get('left_eye')],
+        keypoints[configs.KEYPOINT_INFO.get('right_eye')],
     ])
     left_hand = calculate_centroid([
-        keypoints[KEYPOINT_INFO.get('left_wrist')]
+        keypoints[configs.KEYPOINT_INFO.get('left_wrist')]
     ])
     right_hand = calculate_centroid([
-        keypoints[KEYPOINT_INFO.get('right_wrist')]
+        keypoints[configs.KEYPOINT_INFO.get('right_wrist')]
     ])
     hips = calculate_centroid([
-        keypoints[KEYPOINT_INFO.get('left_hip')],
-        keypoints[KEYPOINT_INFO.get('right_hip')]
+        keypoints[configs.KEYPOINT_INFO.get('left_hip')],
+        keypoints[configs.KEYPOINT_INFO.get('right_hip')]
     ])
 
     return [head, left_hand, right_hand, hips]
@@ -57,3 +47,13 @@ def pose_to_vector(pose, screen, cap):
     y = int((pose[1] / height) * screen.get_height())
 
     return pygame.Vector2(x, y)
+
+
+'''
+v1 and v2 are pygame.Vector2 objects
+'''
+def euclidean_distance(v1, v2):
+    x1, y1 = v1.xy
+    x2, y2 = v2.xy
+
+    return ((x1 - x2)**2 + (y1 - y2)**2)**.5

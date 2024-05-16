@@ -1,16 +1,27 @@
 import pygame
 
-POSE_SIZE = 40
+POSE_SIZE = 60          # size of pose circles
+
+NOTE_SIZE = 40          # size of note circles
+TIME_SIZE = 200         # size of the time circle of the note
+
+NOTE_WIDTH = 4          # width of note circle
+TIME_WIDTH = 2          # width of time circle
+
+MIN_TIME = 250          # number of miliseconds in 15 frames assuming 60fps
+NOTE_SPEED = 2500       # number of milliseconds between a note spawning and time when you hit it
 
 COLORS = dict(
     background = pygame.Color(51, 51, 51),
-    head = pygame.Color(237, 28, 36),
-    left_hand = pygame.Color(115, 251, 253),
-    right_hand = pygame.Color(117, 250, 141),
-    hips = pygame.Color(255, 253, 85),
+    head = pygame.Color(237, 28, 36),           # red
+    left_hand = pygame.Color(115, 251, 253),    # blue
+    right_hand = pygame.Color(163, 73, 164),    # purple
+    hips = pygame.Color(255, 253, 85),          # yellow
+    white = pygame.Color(255, 255, 255),
+    green = pygame.Color(78, 255, 68),
+    gray = pygame.Color(204, 204, 204),
     pose_alpha = 128
 )
-
 
 KEYPOINT_INFO = dict(
     nose=0,
