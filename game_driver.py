@@ -11,6 +11,7 @@ from utils import pose_to_vector, filter_keypoints
 
 # pygame setup
 pygame.init()
+
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
@@ -34,22 +35,16 @@ while running:
         raise Exception('No frame / invalid frame was returned')
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill(configs.COLOR_BACKGROUND)
+    screen.fill(configs.COLORS.get('background'))
 
     skeleton = filter_keypoints(inferencer.get_pose(frame))
     pose = [pose_to_vector(p, screen, cap) for p in skeleton]
 
-    
-    #windowSurface = pygame.display.set_mode((1000, 750), pygame.DOUBLEBUF)
-    #pygame.draw.rect(windowSurface, pygame.Color(255, 255, 255, 128), pygame.Rect(0, 0, 1000, 750))
-
-    pose_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)  # the size of your rect
-    pose_surface.set_alpha(64*2)                # alpha level
-    
     for k in configs.POSE_INFO.keys():
-           pygame.draw.circle(pose_surface, configs.COLORS.get(k), pose[configs.POSE_INFO.get(k)], configs.POSE_SIZE) #I hate you
-
-    screen.blit(pose_surface, (0,0))    # (0,0) are the top-left coordinates
+        pose_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
+        pose_surface.set_alpha(configs.COLORS.get('pose_alpha'))
+        pygame.draw.circle(pose_surface, configs.COLORS.get(k), pose[configs.POSE_INFO.get(k)], configs.POSE_SIZE)
+        screen.blit(pose_surface, (0,0)) 
 
     # flip() the display to put your work on screen
     pygame.display.flip()
@@ -58,7 +53,4 @@ while running:
     # dt is delta time in seconds since last frame, used for framerate-
     # independent physics.
     dt = clock.tick(60) / 1000
-
-
-
 pygame.quit()
