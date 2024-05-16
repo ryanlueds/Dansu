@@ -11,7 +11,7 @@ from utils import pose_to_vector, filter_keypoints
 
 # pygame setup
 pygame.init()
-
+pygame.display.set_caption('All You Need is Dance')
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
