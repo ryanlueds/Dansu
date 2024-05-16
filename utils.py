@@ -1,24 +1,37 @@
-import math
+import pygame
 import cv2
-import numpy as np
 
-WHITE = (255, 255, 255)
-
-def euclidean_distance(pt1, pt2):
-    return ((pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2)**.5
+KEYPOINT_INFO = dict(
+    nose=0,
+    left_eye=1,
+    right_eye=2,
+    left_elbow=7,
+    right_elbow=8,
+    left_wrist=9,
+    right_wrist=10,
+    left_hip=11,
+    right_hip=12
+)
     
-def draw_keypoint_ids(frame, keypoints, keypoint_scores):
-    blank_image = np.zeros((frame.shape[0],frame.shape[1],3), np.uint8)
-    # blank_image = frame
+def filter_keypoints(keypoints):
+    head = calculate_centroid([
+        keypoints[KEYPOINT_INFO.get('nose')],
+        keypoints[KEYPOINT_INFO.get('left_eye')],
+        keypoints[KEYPOINT_INFO.get('right_eye')],
+    ])
+    left_hand = calculate_centroid([
+        keypoints[KEYPOINT_INFO.get('left_wrist')]
+    ])
+    right_hand = calculate_centroid([
+        keypoints[KEYPOINT_INFO.get('right_wrist')]
+    ])
+    hips = calculate_centroid([
+        keypoints[KEYPOINT_INFO.get('left_hip')],
+        keypoints[KEYPOINT_INFO.get('left_hip')]
+    ])
 
-    # Loop through all the given keypoints.
-    for i, (x, y) in enumerate(keypoints):
-        
-        # Draw the circle and text on the frame.
-        cv2.circle(blank_image, (int(x), int(y)), 2, (255, 0, 0), -1)
-        cv2.putText(frame, f"{round(keypoint_scores[i], 2)}", (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255), 1, cv2.LINE_AA)
+    return [head, left_hand, right_hand, hips]
 
-    return blank_image
 
 def calculate_centroid(pts):
     tot_x = 0
@@ -32,3 +45,15 @@ def calculate_centroid(pts):
     tot_y /= len(pts)
 
     return (int(tot_x), int(tot_y))
+
+
+def pose_to_vector(pose, screen, cap):
+    width  = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+    height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+
+    # pygame screen has x coordinates flipped
+    x = int(screen.get_width() - ((pose[0] / width) * screen.get_width()))
+    
+    y = int((pose[1] / height) * screen.get_height())
+
+    return pygame.Vector2(x, y)

@@ -1,5 +1,13 @@
-# Example file showing a circle moving on screen
 import pygame
+
+# pose libraries
+import cv2
+from inferencer import Inferencer
+
+# game configs
+import configs
+
+from utils import pose_to_vector
 
 # pygame setup
 pygame.init()
@@ -10,6 +18,9 @@ dt = 0
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
+inferencer = Inferencer()
+cap = cv2.VideoCapture(0)
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -17,20 +28,22 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    # Read the return flag and the frame.
+    ret, frame = cap.read()
+    if not ret:
+        raise Exception('No frame / invalid frame was returned')
+
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("gray")
+    screen.fill(configs.COLOR_BACKGROUND)
 
-    pygame.draw.circle(screen, "red", player_pos, 40)
+    skeleton = inferencer.get_pose(frame)
+    pose = [pose_to_vector(p, screen, cap) for p in skeleton]
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+    pygame.draw.circle(screen, configs.COLOR_RED, pose[0], configs.POSE_SIZE)
+    pygame.draw.circle(screen, configs.COLOR_BLUE, pose[1], configs.POSE_SIZE)
+    pygame.draw.circle(screen, configs.COLOR_GREEN, pose[2], configs.POSE_SIZE)
+    pygame.draw.circle(screen, configs.COLOR_YELLOW, pose[3], configs.POSE_SIZE)
+
 
     # flip() the display to put your work on screen
     pygame.display.flip()
