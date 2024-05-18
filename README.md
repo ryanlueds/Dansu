@@ -54,9 +54,9 @@ pip install -r requirements.txt
 ```
 
 # Usage
-## 1. Run the script
+## 1. Run the game
 ```
-python inference.py
+python game_driver.py
 ```
 ## 2. Errors
 * Solution to "RuntimeError: nms_impl: implementation for device cuda:0 not found." is to upgrade mmcv to 2.2.0
