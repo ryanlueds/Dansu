@@ -27,6 +27,7 @@ COLORS = dict(
     white = pygame.Color(255, 255, 255),
     green = pygame.Color(78, 255, 68),
     gray = pygame.Color(204, 204, 204),
+    aqua = pygame.Color(100, 247, 255),
     pose_alpha = 128
 )
 

@@ -166,6 +166,15 @@ while running:
     text_surf = font.render(f'Multiplier: {multiplier}', True, (255, 255, 255))
     screen.blit(text_surf, (configs.SCREEN_WIDTH - 350, 100))
 
+    # draw song progress
+    progress_surface = pygame.Surface((screen.get_width(), 35), pygame.SRCALPHA)
+    pygame.draw.rect(
+        progress_surface,
+        configs.COLORS.get('white'),
+        pygame.Rect(0, 0, min(total_time / song[-1][0].start_time * screen.get_width(), screen.get_width()), 35)
+    )
+    screen.blit(progress_surface, (0, 0))
+
     # draw notes
     notes_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
     for note in notes_on_screen:
