@@ -43,6 +43,7 @@ except getopt.error as err:
 # load song
 song = load_song('../ExoJoust/song.json')
 
+# smoothed pose
 pose = [
     pygame.Vector2(-1,-1),
     pygame.Vector2(0,0),
@@ -51,8 +52,8 @@ pose = [
 ]
 
 #Smoothing values, way lower rn, for more realistic, maybe .8 and 5
-smoothingInc = .25
-smoothThresh = 10
+smoothingInc = .8
+smoothThresh = 5
 
 # keep track of notes on screen
 notes_on_screen = []
@@ -95,26 +96,21 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill(configs.COLORS.get('background'))
 
-    # load pose
-    skeleton = filter_keypoints(inferencer.get_pose(frame))
-    skele_pose = [pose_to_vector(p, screen, cap) for p in skeleton]
+    # pose prediction of body keypoints from webcam
+    real_pose = [pose_to_vector(p, screen, cap) for p in filter_keypoints(inferencer.get_pose(frame))]
 
     #Checks if this is the first time pose is got
     if pose[0] == pygame.Vector2(-1,-1):
-        pose = skele_pose
+        pose = real_pose
     else:
-        for num in range(4):
-            #print("Pose ", num, " was ", pose[num])
-            #print("Skele ", num, " was ", skele_pose[num])
+        for num in range(len(pose)):
             # Main Issue im noticing is jittering in certain positions that remains, unsure of how to fix, movement is definitely smoother
             # Maybe add some bound, that way moving slightly doesn't move at all?
-            #new = pygame.Vector2(calculate_centroid((calculate_centroid((pose[num],skele_pose[num])),skele_pose[num])))
-            newx = pose[num].x + ((skele_pose[num].x - pose[num].x) * smoothingInc)
-            newy = pose[num].y + ((skele_pose[num].y - pose[num].y) * smoothingInc)
+            newx = pose[num].x + ((real_pose[num].x - pose[num].x) * smoothingInc)
+            newy = pose[num].y + ((real_pose[num].y - pose[num].y) * smoothingInc)
             new = pygame.Vector2(newx,newy)
             if euclidean_distance(pose[num],new) >= smoothThresh:
                 pose[num] = new
-            #print("Pose ", num, " became ", pose[num])
 
     # load notes
     if note_index < len(song):
@@ -149,12 +145,10 @@ while running:
         pose_surface.set_alpha(configs.COLORS.get('pose_alpha'))
         pygame.draw.circle(pose_surface, configs.COLORS.get(k), pose[configs.POSE_INFO.get(k)], configs.POSE_SIZE)
         screen.blit(pose_surface, (0,0))
-    #print("Check 3")
+
     # flip() the display to put your work on screen
     pygame.display.flip()
 
     # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
     dt = clock.tick(60) / 1000
 pygame.quit()
