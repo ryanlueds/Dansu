@@ -120,6 +120,10 @@ while running:
                 notes_on_screen.append(note)
             note_index += 1
 
+    # check if notes are intersecting the pose
+    for note in notes_on_screen:
+        note.check_intersecting(pose)
+
     # remove notes that should have disappeared
     notes_on_screen[:] = [note for note in notes_on_screen if not filter_note(note, total_time)]
 
@@ -159,7 +163,10 @@ while running:
         if debug:
             font = pygame.font.SysFont(None, 32)
             text_surf = font.render(f'{round(pose[configs.POSE_INFO.get(k)].x)}, {round(pose[configs.POSE_INFO.get(k)].y)}', True, (255, 255, 255))
-            screen.blit(text_surf, (pose[configs.POSE_INFO.get(k)].x + configs.POSE_SIZE, pose[configs.POSE_INFO.get(k)].y))
+            screen.blit(text_surf, (pose[configs.POSE_INFO.get(k)].x, pose[configs.POSE_INFO.get(k)].y))
+            if k == 'hips':
+                text_surf = font.render(f'{round(pose[configs.POSE_INFO.get(k) + 1].x)}, {round(pose[configs.POSE_INFO.get(k) + 1].y)}', True, (255, 255, 255))
+                screen.blit(text_surf, (pose[configs.POSE_INFO.get(k) + 1].x, pose[configs.POSE_INFO.get(k) + 1].y))
 
     # flip() the display to put your work on screen
     pygame.display.flip()
