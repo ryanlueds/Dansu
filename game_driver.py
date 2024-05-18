@@ -62,6 +62,11 @@ smoothThresh = 5
 notes_on_screen = []
 note_index = 0
 
+# keep track of score and multiplier
+score = 0
+multiplier = 1
+consec_notes = 0
+
 # load model
 inferencer = Inferencer()
 cap = cv2.VideoCapture(0)
@@ -125,7 +130,23 @@ while running:
         note.check_intersecting(pose)
 
     # remove notes that should have disappeared
-    notes_on_screen[:] = [note for note in notes_on_screen if not filter_note(note, total_time)]
+    # add score to notes when you hit them
+    tmp = []
+    for note in notes_on_screen:
+        if (not note.is_slider and total_time < note.start_time) or (note.is_slider and total_time < note.end_time):
+            tmp.append(note)
+            continue
+        if not note.is_slider and total_time > note.start_time:
+            if note.is_intersecting:
+                consec_notes += 1
+                if consec_notes > configs.CONSEC_NOTES:
+                    consec_notes = 0
+                    multiplier = min(multiplier + 1, configs.MAX_MULT)
+                score += configs.NOTE_SCORE * multiplier
+            else:
+                consec_notes = 0
+                multiplier = 1
+    notes_on_screen = tmp
 
     # draw camera
     if camera:
@@ -138,10 +159,17 @@ while running:
         pygame.surfarray.blit_array(camera_surface, frame)
         screen.blit(camera_surface, (0, 0))
 
+    # draw score
+    font = pygame.font.SysFont(None, 48)
+    text_surf = font.render(f'Score: {score}', True, (255, 255, 255))
+    screen.blit(text_surf, (configs.SCREEN_WIDTH - 350, 50))
+    text_surf = font.render(f'Multiplier: {multiplier}', True, (255, 255, 255))
+    screen.blit(text_surf, (configs.SCREEN_WIDTH - 350, 100))
+
     # draw notes
     notes_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
     for note in notes_on_screen:
-        note.draw(notes_surface, pose, total_time)
+        note.draw(notes_surface, total_time)
     screen.blit(notes_surface, (0,0))
 
     # draw pose

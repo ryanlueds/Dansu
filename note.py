@@ -19,7 +19,7 @@ class Note:
                 return
         self.is_intersecting = False
     
-    def draw(self, surface, pose, curr_time):
+    def draw(self, surface, curr_time):
         if self.is_slider:
             pass
         else:
