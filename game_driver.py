@@ -10,7 +10,7 @@ from inferencer import Inferencer
 # game configs
 import configs
 
-from utils import pose_to_vector, filter_keypoints
+from utils import pose_to_vector, filter_keypoints, calculate_centroid, euclidean_distance
 from render_utils import load_song, filter_note
 
 
@@ -42,6 +42,18 @@ except getopt.error as err:
 
 # load song
 song = load_song('../ExoJoust/song.json')
+
+# smoothed pose
+pose = [
+    pygame.Vector2(-1,-1),
+    pygame.Vector2(0,0),
+    pygame.Vector2(0,0),
+    pygame.Vector2(0,0)
+]
+
+#Smoothing values, way lower rn, for more realistic, maybe .8 and 5
+smoothingInc = .8
+smoothThresh = 5
 
 # keep track of notes on screen
 notes_on_screen = []
@@ -84,9 +96,21 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill(configs.COLORS.get('background'))
 
-    # load pose
-    skeleton = filter_keypoints(inferencer.get_pose(frame))
-    pose = [pose_to_vector(p, screen, cap) for p in skeleton]
+    # pose prediction of body keypoints from webcam
+    real_pose = [pose_to_vector(p, screen, cap) for p in filter_keypoints(inferencer.get_pose(frame))]
+
+    #Checks if this is the first time pose is got
+    if pose[0] == pygame.Vector2(-1,-1):
+        pose = real_pose
+    else:
+        for num in range(len(pose)):
+            # Main Issue im noticing is jittering in certain positions that remains, unsure of how to fix, movement is definitely smoother
+            # Maybe add some bound, that way moving slightly doesn't move at all?
+            newx = pose[num].x + ((real_pose[num].x - pose[num].x) * smoothingInc)
+            newy = pose[num].y + ((real_pose[num].y - pose[num].y) * smoothingInc)
+            new = pygame.Vector2(newx,newy)
+            if euclidean_distance(pose[num],new) >= smoothThresh:
+                pose[num] = new
 
     # load notes
     if note_index < len(song):
@@ -126,7 +150,5 @@ while running:
     pygame.display.flip()
 
     # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
     dt = clock.tick(60) / 1000
 pygame.quit()

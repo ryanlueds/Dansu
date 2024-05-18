@@ -36,7 +36,7 @@ def calculate_centroid(pts):
     tot_x /= len(pts)
     tot_y /= len(pts)
 
-    return (int(tot_x), int(tot_y))
+    return tot_x, tot_y
 
 
 def pose_to_vector(pose, screen, cap):
