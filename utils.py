@@ -17,12 +17,10 @@ def filter_keypoints(keypoints):
                  lw[1] + .25*(lw[1] - le[1]))
     right_hand = (rw[0] + .25*(rw[0] - re[0]),
                   rw[1] + .25*(rw[1] - re[1]))
-    hips = calculate_centroid([
-        keypoints[configs.KEYPOINT_INFO.get('left_hip')],
-        keypoints[configs.KEYPOINT_INFO.get('right_hip')]
-    ])
+    left_hip = keypoints[configs.KEYPOINT_INFO.get('left_hip')]
+    right_hip = keypoints[configs.KEYPOINT_INFO.get('right_hip')]
 
-    return [head, left_hand, right_hand, hips]
+    return [head, left_hand, right_hand, left_hip, right_hip, calculate_centroid([left_hip, right_hip])]
 
 
 def calculate_centroid(pts):

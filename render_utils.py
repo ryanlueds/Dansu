@@ -46,3 +46,11 @@ def filter_note(note, clock_time):
         return True
     
     return False
+
+def draw_line_round_corners_polygon(surf, p1, p2, c, w):
+    lv = (p2 - p1).normalize()
+    lnv = pygame.math.Vector2(-lv.y, lv.x) * w
+    pts = [p1 + lnv, p2 + lnv, p2 - lnv, p1 - lnv]
+    pygame.draw.polygon(surf, c, pts)
+    pygame.draw.circle(surf, c, p1, w)
+    pygame.draw.circle(surf, c, p2, w)

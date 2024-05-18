@@ -10,8 +10,8 @@ from inferencer import Inferencer
 # game configs
 import configs
 
-from utils import pose_to_vector, filter_keypoints, calculate_centroid, euclidean_distance
-from render_utils import load_song, filter_note
+from utils import pose_to_vector, filter_keypoints, euclidean_distance
+from render_utils import load_song, filter_note, draw_line_round_corners_polygon
 
 
 # pygame setup
@@ -144,7 +144,16 @@ while running:
     for k in configs.POSE_INFO.keys():
         pose_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
         pose_surface.set_alpha(configs.COLORS.get('pose_alpha'))
-        pygame.draw.circle(pose_surface, configs.COLORS.get(k), pose[configs.POSE_INFO.get(k)], configs.POSE_SIZE)
+        if k == 'hips':
+            draw_line_round_corners_polygon(
+                pose_surface,
+                pose[configs.POSE_INFO.get(k)],
+                pose[configs.POSE_INFO.get(k) + 1],
+                configs.COLORS.get(k),
+                configs.POSE_SIZE
+            )
+        else:
+            pygame.draw.circle(pose_surface, configs.COLORS.get(k), pose[configs.POSE_INFO.get(k)], configs.POSE_SIZE)
         screen.blit(pose_surface, (0,0))
 
         if debug:
