@@ -55,6 +55,8 @@ def pose_to_vector(pose, screen, cap):
 v1 and v2 are pygame.Vector2 objects
 '''
 def euclidean_distance(v1, v2):
+    #print("v1, ",v1)
+    #print("v2, ",v2)
     x1, y1 = v1.xy
     x2, y2 = v2.xy
 
