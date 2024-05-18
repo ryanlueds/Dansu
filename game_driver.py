@@ -28,14 +28,17 @@ text_rect.center = (screen.get_width() // 2, screen.get_height() // 2)
 screen.blit(text, text_rect)
 pygame.display.flip()
 
-# whether the camera should be turned off
-argumentList = sys.argv[1:]
+# CLI arguments
+arg_list = sys.argv[1:]
 camera = True
+debug = False
 try:
-    arguments, values = getopt.getopt(argumentList, 'n', ['no_camera'])
-    for currentArgument, currentValue in arguments:
-        if currentArgument in ("-n", "--no_camera"):
+    args, values = getopt.getopt(arg_list, 'nd', ['no_camera', 'debug'])
+    for curr_arg, curr_val in args:
+        if curr_arg in ('-n', '--no_camera'):
             camera = False
+        elif curr_arg in ('-d', '--debug'):
+            debug = True
              
 except getopt.error as err:
     print (str(err))
@@ -75,9 +78,7 @@ while running:
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            cap.release()
-            cv2.destroyAllWindows()
-            break
+            running = False
 
     # update total time
     if reset_clock > 20:
@@ -146,9 +147,17 @@ while running:
         pygame.draw.circle(pose_surface, configs.COLORS.get(k), pose[configs.POSE_INFO.get(k)], configs.POSE_SIZE)
         screen.blit(pose_surface, (0,0))
 
+        if debug:
+            font = pygame.font.SysFont(None, 32)
+            text_surf = font.render(f'{round(pose[configs.POSE_INFO.get(k)].x)}, {round(pose[configs.POSE_INFO.get(k)].y)}', True, (255, 255, 255))
+            screen.blit(text_surf, (pose[configs.POSE_INFO.get(k)].x + configs.POSE_SIZE, pose[configs.POSE_INFO.get(k)].y))
+
     # flip() the display to put your work on screen
     pygame.display.flip()
 
     # limits FPS to 60
     dt = clock.tick(60) / 1000
+
+cap.release()
+cv2.destroyAllWindows()
 pygame.quit()

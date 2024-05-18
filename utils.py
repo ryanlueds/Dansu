@@ -44,9 +44,9 @@ def pose_to_vector(pose, screen, cap):
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
     # pygame screen has x coordinates flipped
-    x = int(screen.get_width() - ((pose[0] / width) * screen.get_width()))
+    x = screen.get_width() - ((pose[0] / width) * screen.get_width())
     
-    y = int((pose[1] / height) * screen.get_height())
+    y = (pose[1] / height) * screen.get_height()
 
     return pygame.Vector2(x, y)
 
