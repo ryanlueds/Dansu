@@ -1,0 +1,300 @@
+{
+    "song": [
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 2000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 2500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 3000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 3500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 4000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 4500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 5000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 5500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 6000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 6500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 7000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 7500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 8000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 8500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 9000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 9500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 10000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 10500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 11000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 11500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                350,
+                600
+            ],
+            "start_time": 12000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                600
+            ],
+            "start_time": 12500
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                300,
+                100
+            ],
+            "start_time": 1000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                150,
+                300
+            ],
+            "start_time": 2000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                300,
+                100
+            ],
+            "start_time": 3000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                150,
+                300
+            ],
+            "start_time": 4000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                300,
+                100
+            ],
+            "start_time": 5000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                150,
+                300
+            ],
+            "start_time": 6000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                1000,
+                100
+            ],
+            "start_time": 1000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                1100,
+                300
+            ],
+            "start_time": 2000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                1000,
+                100
+            ],
+            "start_time": 3000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                1100,
+                300
+            ],
+            "start_time": 4000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                1000,
+                100
+            ],
+            "start_time": 5000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                1100,
+                300
+            ],
+            "start_time": 6000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                600,
+                150
+            ],
+            "start_time": 2000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                400,
+                200
+            ],
+            "start_time": 5000
+        },
+        {
+            "is_slider": false,
+            "start_pos": [
+                800,
+                200
+            ],
+            "start_time": 9000
+        }
+    ]
+}
