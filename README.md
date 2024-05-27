@@ -1,5 +1,5 @@
 # Dansu
-Map pose estimation from camera to 2D model in a game where you hit notes. Inspired by Osu!
+Map pose estimation from camera to 2D model in a game where you hit notes. Inspired by Osu! The name comes from the wasei-eigo for the word 'Dance', and it sort of sounds like Osu.
 
 Dragos dancing
 
