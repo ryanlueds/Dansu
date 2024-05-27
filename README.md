@@ -1,13 +1,13 @@
-# ExoJoust
+# Dansu
 Map pose estimation from camera to 2D model in a game where you hit notes. Inspired by Osu!
 
 Dragos dancing
 
-![](https://github.com/ryanlueds/ExoJoust/blob/main/videos/dragosdancing.gif)
+![](https://github.com/ryanlueds/Dansu/blob/main/videos/dragosdancing.gif)
 
 Ryan dancing
 
-![](https://github.com/ryanlueds/ExoJoust/blob/main/videos/ryandancing.gif)
+![](https://github.com/ryanlueds/Dansu/blob/main/videos/ryandancing.gif)
 
 # MMPose Installation Guide 
 ## 1. Prerequisite guide from [MMPpose](https://mmpose.readthedocs.io/en/latest/installation.html):
@@ -30,7 +30,7 @@ mim install "mmdet>=3.1.0"
 ```
 
 ## 2. Build MMPose from source
-* Create a directory `ExoJoust/` in your user directory. Do all next steps in `ExoJoust/` directory.
+* Create a directory `Dansu/` in your user directory. Do all next steps in `Dansu/` directory.
 * Install mmpose from source
 ```
 git clone https://github.com/open-mmlab/mmpose.git
@@ -46,15 +46,15 @@ pip install -v -e .
 ```
 mim download mmpose --config td-hm_hrnet-w48_8xb32-210e_coco-256x192  --dest .
 ```
-* Step 2. Run the inference demo. Run the following command under the folder `ExoJoust/mmpose/`:
+* Step 2. Run the inference demo. Run the following command under the folder `Dansu/mmpose/`:
 ```
 python demo/image_demo.py tests/data/coco/000000000785.jpg td-hm_hrnet-w48_8xb32-210e_coco-256x192.py td-hm_hrnet-w48_8xb32-210e_coco-256x192-0e67c616_20220913.pth --out-file vis_results.jpg --draw-heatmap
 ```
 
-# ExoJoust Installation
+# Dansu Installation
 ## 1. Clone the repository
 ```
-git clone https://github.com/ryanlueds/ExoJoust.git
+git clone https://github.com/ryanlueds/Dansu.git
 ```
 ## 2. Install dependencies
 ```
