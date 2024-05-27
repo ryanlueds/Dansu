@@ -44,7 +44,7 @@ except getopt.error as err:
     print (str(err))
 
 # load song
-song = load_song('../ExoJoust/song.json')
+song = load_song('../ExoJoust/notesong.json')
 
 # smoothed pose
 pose = [
