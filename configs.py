@@ -12,7 +12,7 @@ TIME_SIZE = 200         # size of the time circle of the note
 NOTE_WIDTH = 4          # width of note circle
 TIME_WIDTH = 2          # width of time circle
 MIN_TIME = 250          # number of miliseconds in 15 frames assuming 60fps
-NOTE_SPEED = 750       # number of milliseconds between a note spawning and time when you hit it
+NOTE_SPEED = 1500       # number of milliseconds between a note spawning and time when you hit it
 
 NOTE_SCORE = 1          # number of points for hitting a note
 MAX_MULT = 4            # max multipler
