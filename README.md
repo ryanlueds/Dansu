@@ -1,8 +1,12 @@
 # ExoJoust
 Map pose estimation from camera to 2D model in a game where you hit notes. Inspired by Osu!
+
 Dragos dancing
+
 ![](https://github.com/ryanlueds/ExoJoust/blob/main/videos/dragosdancing.gif)
+
 Ryan dancing
+
 ![](https://github.com/ryanlueds/ExoJoust/blob/main/videos/ryandancing.gif)
 
 # MMPose Installation Guide 
