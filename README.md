@@ -1,5 +1,6 @@
 # ExoJoust
 Map pose estimation from camera to 2D model in a game
+![](https://github.com/ryanlueds/ExoJoust/blob/main/videos/dragosdancing.gif)
 
 # MMPose Installation Guide 
 ## 1. Prerequisite guide from [MMPpose](https://mmpose.readthedocs.io/en/latest/installation.html):
